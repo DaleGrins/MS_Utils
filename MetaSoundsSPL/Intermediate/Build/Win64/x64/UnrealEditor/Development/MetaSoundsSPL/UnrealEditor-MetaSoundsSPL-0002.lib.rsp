@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-MetaSoundsSPL-0002.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\DG\Documents\Unreal Projects\SPL_Meter\Intermediate\Build\Win64\x64\SPL_MeterEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
+"C:\Users\DG\Documents\Unreal Projects\SPL_Meter\Plugins\MetaSoundsSPL\Intermediate\Build\Win64\x64\UnrealEditor\Development\MetaSoundsSPL\Module.MetaSoundsSPL.cpp.obj"
+"C:\Users\DG\Documents\Unreal Projects\SPL_Meter\Plugins\MetaSoundsSPL\Intermediate\Build\Win64\x64\UnrealEditor\Development\MetaSoundsSPL\Default.rc2.res"
+/OUT:"C:\Users\DG\Documents\Unreal Projects\SPL_Meter\Plugins\MetaSoundsSPL\Intermediate\Build\Win64\x64\UnrealEditor\Development\MetaSoundsSPL\UnrealEditor-MetaSoundsSPL-0002.lib"

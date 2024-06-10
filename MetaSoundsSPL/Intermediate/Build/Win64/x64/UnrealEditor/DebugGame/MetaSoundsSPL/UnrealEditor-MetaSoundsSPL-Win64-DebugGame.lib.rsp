@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-MetaSoundsSPL-Win64-DebugGame.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\DG\Documents\Unreal Projects\SPL_Meter\Intermediate\Build\Win64\x64\SPL_MeterEditor\DebugGame\Engine\SharedPCH.Engine.NonOptimized.Cpp20.h.obj"
+"C:\Users\DG\Documents\Unreal Projects\SPL_Meter\Plugins\MetaSoundsSPL\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\MetaSoundsSPL\Module.MetaSoundsSPL.cpp.obj"
+"C:\Users\DG\Documents\Unreal Projects\SPL_Meter\Plugins\MetaSoundsSPL\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\MetaSoundsSPL\Default.rc2.res"
+/OUT:"C:\Users\DG\Documents\Unreal Projects\SPL_Meter\Plugins\MetaSoundsSPL\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\MetaSoundsSPL\UnrealEditor-MetaSoundsSPL-Win64-DebugGame.lib"

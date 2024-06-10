@@ -1,0 +1,8 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.MS_Utils.cpp.obj": [
+			"MS_Utils.cpp.obj"
+		]
+	}
+}
