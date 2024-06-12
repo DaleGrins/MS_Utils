@@ -2,6 +2,6 @@
 	"BuildId": "27405482",
 	"Modules": 
 	{
-		"MS_Utils": "UnrealEditor-MS_Utils-0002.dll"
+		"MS_Utils": "UnrealEditor-MS_Utils.dll"
 	}
 }

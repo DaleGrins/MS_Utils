@@ -1,6 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 using UnrealBuildTool;
+using UnrealBuildTool.Rules;
 
 public class MS_Utils : ModuleRules
 {
@@ -28,9 +29,8 @@ public class MS_Utils : ModuleRules
                 "Core",
                 "MetasoundGraphCore",
                 "MetasoundEngine",
-                "MetasoundFrontend",
-                "SignalProcessing"
-				//"Metasound"
+                "MetasoundFrontend"
+
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -43,6 +43,10 @@ public class MS_Utils : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+                "Serialization",
+                "SignalProcessing",
+                "AudioExtensions",
+                "MetasoundStandardNodes"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

@@ -1,9 +1,0 @@
-{
-	"RemapUnityFiles": 
-	{
-		"Module.MS_Utils.cpp.obj": [
-			"EPLightWeight.cpp.obj",
-			"MS_Utils.cpp.obj"
-		]
-	}
-}
