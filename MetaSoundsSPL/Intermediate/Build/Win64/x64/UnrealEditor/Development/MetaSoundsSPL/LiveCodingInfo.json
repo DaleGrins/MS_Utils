@@ -1,0 +1,10 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.MetaSoundsSPL.cpp.obj": [
+			"MetaSoundsSPL.cpp.obj",
+			"MSAudioTemplate.cpp.obj",
+			"MSFloatTemplate.cpp.obj"
+		]
+	}
+}
