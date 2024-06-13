@@ -90,7 +90,7 @@ namespace Metasound
 						{ TEXT("UE"), TEXT("EPLight"), TEXT("Audio") },
 						1, // Major Version
 						0, // Minor Version
-						METASOUND_LOCTEXT("EPTestDisplayName", "EP Light Weight"),
+						METASOUND_LOCTEXT("EPTestDisplayName", "EP Crossfade Light Weight"),
 						METASOUND_LOCTEXT("EPTestNodeDesc", "A node for crossfading between two audio channels by the cos equal power function"),
 						PluginAuthor,
 						PluginNodeMissingPrompt,
