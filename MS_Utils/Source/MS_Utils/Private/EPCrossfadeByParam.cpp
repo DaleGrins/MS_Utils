@@ -17,9 +17,9 @@
 
 #define LOCTEXT_NAMESPACE "MetasoundStandardNodes_EPCrossfadeByParamNode"
 
-#define REGISTER_CROSSFADEBYPARAM_NODE(DataType, Number) \
-	using FEPCrossfadeByParamNode##DataType##_##Number = TEPCrossfadeByParamNode<DataType, Number>; \
-	METASOUND_REGISTER_NODE(FEPCrossfadeByParamNode##DataType##_##Number) \
+#define REGISTER_CROSSFADEBYPARAM_NODE(Number) \
+	using FEPCrossfadeByParamNode##Number = TEPCrossfadeByParamNode<Number>; \
+	METASOUND_REGISTER_NODE(FEPCrossfadeByParamNode##Number) \
 
 
 namespace Metasound
@@ -126,8 +126,8 @@ namespace Metasound
 		TArray<bool> NeedsMixing;
 	};
 
-	template<typename ValueType, uint32 NumInputs>
-	class TEPCrossfadeByParamOperator : public TExecutableOperator<TEPCrossfadeByParamOperator<ValueType, NumInputs>>
+	template<int32 NumInputs>
+	class TEPCrossfadeByParamOperator : public TExecutableOperator<TEPCrossfadeByParamOperator<NumInputs>>
 	{
 	public:
 		static const FVertexInterface& GetVertexInterface()
@@ -148,11 +148,11 @@ namespace Metasound
 						GetInputDisplayName(i)
 					};
 
-					InputInterface.Add(TInputDataVertex<ValueType>(GetInputName(i), InputMetadata));
+					InputInterface.Add(TInputDataVertex<FAudioBuffer>(GetInputName(i), InputMetadata));
 				}
 
 				FOutputVertexInterface OutputInterface;
-				OutputInterface.Add(TOutputDataVertex<ValueType>(METASOUND_GET_PARAM_NAME_AND_METADATA(OutputTrigger)));
+				OutputInterface.Add(TOutputDataVertex<FAudioBuffer>(METASOUND_GET_PARAM_NAME_AND_METADATA(OutputTrigger)));
 
 				return FVertexInterface(InputInterface, OutputInterface);
 			};
@@ -165,9 +165,9 @@ namespace Metasound
 		{
 			auto CreateNodeClassMetadata = []() -> FNodeClassMetadata
 			{
-				FName DataTypeName = GetMetasoundDataTypeName<ValueType>();
+				FName DataTypeName = GetMetasoundDataTypeName<FAudioBuffer>();
 				FName OperatorName = *FString::Printf(TEXT("Trigger Route (%s, %d)"), *DataTypeName.ToString(), NumInputs);
-				FText NodeDisplayName = METASOUND_LOCTEXT_FORMAT("CBPDisplayNamePattern", "CBPCrossfade ({0}, {1})", GetMetasoundDataTypeDisplayText<ValueType>(), NumInputs);
+				FText NodeDisplayName = METASOUND_LOCTEXT_FORMAT("CBPDisplayNamePattern", "CBPCrossfade ({0}, {1})", GetMetasoundDataTypeDisplayText<FAudioBuffer>(), NumInputs);
 				const FText NodeDescription = METASOUND_LOCTEXT("CBPDescription", "Crossfades inputs by equal power to outputs.");
 				FVertexInterface NodeInterface = GetVertexInterface();
 
@@ -201,21 +201,22 @@ namespace Metasound
 
 			FFloatReadRef CrossfadeValue = InputCollection.GetDataReadReferenceOrConstructWithVertexDefault<float>(InputInterface, METASOUND_GET_PARAM_NAME(InputCrossfadeValue), InParams.OperatorSettings);
 
-			TArray<TDataReadReference<ValueType>> InputValues;
+			TArray<TDataReadReference<FAudioBuffer>> InputValues;
 			for (uint32 i = 0; i < NumInputs; ++i)
 			{
-				InputValues.Add(InputCollection.GetDataReadReferenceOrConstructWithVertexDefault<ValueType>(InputInterface, GetInputName(i), InParams.OperatorSettings));
+				InputValues.Add(InputCollection.GetDataReadReferenceOrConstructWithVertexDefault<FAudioBuffer>(InputInterface, GetInputName(i), InParams.OperatorSettings));
 			}
 
-			return MakeUnique<TEPCrossfadeByParamOperator<ValueType, NumInputs>>(InParams.OperatorSettings, CrossfadeValue, MoveTemp(InputValues));
+			return MakeUnique<TEPCrossfadeByParamOperator<NumInputs>>(InParams.OperatorSettings, CrossfadeValue, MoveTemp(InputValues));
 		}
 
 
-		TEPCrossfadeByParamOperator(const FOperatorSettings& InSettings, const FFloatReadRef& InCrossfadeValue, TArray<TDataReadReference<ValueType>>&& InInputValues)
+		TEPCrossfadeByParamOperator(const FOperatorSettings& InSettings, const FFloatReadRef& InCrossfadeValue, TArray<TDataReadReference<FAudioBuffer>>&& InInputValues)
 			: CrossfadeValue(InCrossfadeValue)
 			, InputValues(MoveTemp(InInputValues))
-			, OutputValue(TDataWriteReferenceFactory<ValueType>::CreateAny(InSettings))
+			, OutputValue(TDataWriteReferenceFactory<FAudioBuffer>::CreateAny(InSettings))
 			, Crossfader(InSettings.GetNumFramesPerBlock(), NumInputs)
+
 		{
 			PerformCrossfadeOutput();
 		}
@@ -290,8 +291,8 @@ namespace Metasound
 
 	private:
 		FFloatReadRef CrossfadeValue;
-		TArray<TDataReadReference<ValueType>> InputValues;
-		TDataWriteReference<ValueType> OutputValue;
+		TArray<TDataReadReference<FAudioBuffer>> InputValues;
+		TDataWriteReference<FAudioBuffer> OutputValue;
 
 		float PrevCrossfadeValue = -1.0f;
 		int32 IndexA = 0;
@@ -300,7 +301,7 @@ namespace Metasound
 		TCBPHelper Crossfader;
 	};
 
-	template<typename ValueType, uint32 NumInputs>
+	template<uint32 NumInputs>
 	class TEPCrossfadeByParamNode : public FNodeFacade
 	{
 	public:
@@ -308,19 +309,19 @@ namespace Metasound
 		 * Constructor used by the Metasound Frontend.
 		 */
 		TEPCrossfadeByParamNode(const FNodeInitData& InInitData)
-			: FNodeFacade(InInitData.InstanceName, InInitData.InstanceID, TFacadeOperatorClass<TEPCrossfadeByParamOperator<ValueType, NumInputs>>())
+			: FNodeFacade(InInitData.InstanceName, InInitData.InstanceID, TFacadeOperatorClass<TEPCrossfadeByParamOperator<NumInputs>>())
 		{}
 
 		virtual ~TEPCrossfadeByParamNode() = default;
 	};
 
-	REGISTER_CROSSFADEBYPARAM_NODE(FAudioBuffer, 2);
-	REGISTER_CROSSFADEBYPARAM_NODE(FAudioBuffer, 3);
-	REGISTER_CROSSFADEBYPARAM_NODE(FAudioBuffer, 4);
-	REGISTER_CROSSFADEBYPARAM_NODE(FAudioBuffer, 5);
-	REGISTER_CROSSFADEBYPARAM_NODE(FAudioBuffer, 6);
-	REGISTER_CROSSFADEBYPARAM_NODE(FAudioBuffer, 7);
-	REGISTER_CROSSFADEBYPARAM_NODE(FAudioBuffer, 8);
+	REGISTER_CROSSFADEBYPARAM_NODE(2);
+	REGISTER_CROSSFADEBYPARAM_NODE(3);
+	REGISTER_CROSSFADEBYPARAM_NODE(4);
+	REGISTER_CROSSFADEBYPARAM_NODE(5);
+	REGISTER_CROSSFADEBYPARAM_NODE(6);
+	REGISTER_CROSSFADEBYPARAM_NODE(7);
+	REGISTER_CROSSFADEBYPARAM_NODE(8);
 
 }
 
