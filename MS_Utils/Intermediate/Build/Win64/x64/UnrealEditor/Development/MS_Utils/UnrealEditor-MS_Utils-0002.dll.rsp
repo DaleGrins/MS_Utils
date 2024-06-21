@@ -44,6 +44,7 @@
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\Serialization\UnrealEditor-Serialization.lib"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\SignalProcessing\UnrealEditor-SignalProcessing.lib"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\AudioExtensions\UnrealEditor-AudioExtensions.lib"
+"..\Plugins\Runtime\Metasound\Intermediate\Build\Win64\x64\UnrealEditor\Development\MetasoundStandardNodes\UnrealEditor-MetasoundStandardNodes.lib"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
 "..\Plugins\Runtime\Metasound\Intermediate\Build\Win64\x64\UnrealEditor\Development\MetasoundGraphCore\UnrealEditor-MetasoundGraphCore.lib"
 "..\Plugins\Runtime\Metasound\Intermediate\Build\Win64\x64\UnrealEditor\Development\MetasoundEngine\UnrealEditor-MetasoundEngine.lib"

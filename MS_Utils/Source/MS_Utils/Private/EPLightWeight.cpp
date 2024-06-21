@@ -1,8 +1,10 @@
+// Copyright Dale Grinsell 2024. All Rights Reserved. 
+
 #include "EPLightWeight.h"
 
 #include "DSP/FloatArrayMath.h"
 
-#define LOCTEXT_NAMESPACE "MetasoundStandardNodes_MetaSoundSPLMeter"
+#define LOCTEXT_NAMESPACE "MetasoundStandardNodes_EPCrossfade"
 
 namespace Metasound
 {

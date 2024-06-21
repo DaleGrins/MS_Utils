@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright Dale Grinsell 2024. All Rights Reserved. 
 
 #include "MS_Utils.h"
 #include "MetasoundNodeRegistrationMacro.h"

@@ -1,3 +1,5 @@
+// Copyright Dale Grinsell 2024. All Rights Reserved. 
+
 #pragma once
 
 #include "CoreMinimal.h"
