@@ -3,6 +3,7 @@
 #include "CrossfadeByParam.h"
 
 #include "DSP/FloatArrayMath.h"
+#include "MetasoundStandardNodesCategories.h"
 
 #define LOCTEXT_NAMESPACE "MetasoundStandardNodes_CrossfadeByParam"
 
@@ -46,20 +47,19 @@ namespace Metasound
 	void FCBPOperator::Execute()
 	{
 		FMemory::Memcpy(AudioOutput->GetData(), AudioInput->GetData(), sizeof(float) * AudioInput->Num());
-		//*AudioOutput = *AudioInput;
 
-		if (*FloatIn != FloatInPrev)
+		if (*FloatIn != FloatInPrev || bInit == false)
 		{
+			if (!bInit)
+			{
+				bInit = true;
+			}
+
 			float FadeInValue = FMath::GetMappedRangeValueClamped(FVector2D(*FadeInStart, *FadeInEnd), FVector2D(0.f, 1.f), *FloatIn);
 			float FadeOutValue = FMath::GetMappedRangeValueClamped(FVector2D(*FadeOutStart, *FadeOutEnd), FVector2D(1.f, 0.f), *FloatIn);
 			if (*bUseEPCrossfade)
 			{
 				Amplitude = FMath::Clamp(FMath::Cos((1.f - (FadeInValue * FadeOutValue)) * HALF_PI), 0.f, 1.f);
-				//GEngine->AddOnScreenDebugMessage(1, 15.0f, FColor::Blue, FString::Printf(TEXT("FadeIn: %f"), FadeInValue));
-				//GEngine->AddOnScreenDebugMessage(2, 15.0f, FColor::Red, FString::Printf(TEXT("FadeOut: %f"), FadeOutValue));
-				//GEngine->AddOnScreenDebugMessage(3, 15.0f, FColor::Blue, FString::Printf(TEXT("FadeInCos: %f"), FadeInCos));
-				//GEngine->AddOnScreenDebugMessage(4, 15.0f, FColor::Red, FString::Printf(TEXT("FadeOuCost: %f"), FadeOutCos));
-				//GEngine->AddOnScreenDebugMessage(5, 15.0f, FColor::Green, FString::Printf(TEXT("Multiply: %f"), Amplitude));
 			}
 			else
 			{
@@ -106,9 +106,6 @@ namespace Metasound
 
 				FNodeClassMetadata Metadata
 				{
-					//I get LNK errors using the StandardNodes namespace, not sure why, the variables Namespace and AudioVariant are define.
-						//FNodeClassName { StandardNodes::Namespace, "SPL Node",
-						//	 StandardNodes::AudioVariant },
 						{ TEXT("UE"), TEXT("CrossfadeByParam"), TEXT("Audio") },
 						1, // Major Version
 						0, // Minor Version
@@ -117,7 +114,7 @@ namespace Metasound
 						PluginAuthor,
 						PluginNodeMissingPrompt,
 						NodeInterface,
-						{ },
+						{ NodeCategories::Envelopes },
 						{ },
 						FNodeDisplayStyle{}
 				};

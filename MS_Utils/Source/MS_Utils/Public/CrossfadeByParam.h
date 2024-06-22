@@ -65,9 +65,10 @@ namespace Metasound
 		float SignalTwoPreviousGain = 0.f;
 		float FloatInPrev = 0.0f;
 		float Amplitude = 0.0f;
-		float AmplitudePrev = 1.0f;
+		float AmplitudePrev = 0.0f;
 		float FadeInCos;
 		float FadeOutCos;
+		bool bInit = false;
 	};
 
 	//------------------------------------------------------------------------------------

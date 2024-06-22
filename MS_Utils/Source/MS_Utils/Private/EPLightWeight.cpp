@@ -3,8 +3,9 @@
 #include "EPLightWeight.h"
 
 #include "DSP/FloatArrayMath.h"
+#include "MetasoundStandardNodesCategories.h"
 
-#define LOCTEXT_NAMESPACE "MetasoundStandardNodes_EPCrossfade"
+#define LOCTEXT_NAMESPACE "MetasoundStandardNodes_EPCrossfade_Lightweight"
 
 namespace Metasound
 {
@@ -86,18 +87,15 @@ namespace Metasound
 
 				FNodeClassMetadata Metadata
 				{
-					//I get LNK errors using the StandardNodes namespace, not sure why, the variables Namespace and AudioVariant are define.
-						//FNodeClassName { StandardNodes::Namespace, "SPL Node",
-						//	 StandardNodes::AudioVariant },
 						{ TEXT("UE"), TEXT("EPLight"), TEXT("Audio") },
 						1, // Major Version
 						0, // Minor Version
-						METASOUND_LOCTEXT("EPTestDisplayName", "EP Crossfade Light Weight"),
-						METASOUND_LOCTEXT("EPTestNodeDesc", "A node for crossfading between two audio channels by the cos equal power function"),
+						METASOUND_LOCTEXT("EPTestDisplayName", "EP Crossfade Lightweight"),
+						METASOUND_LOCTEXT("EPTestNodeDesc", "Crossfades between two audio channels by the cos equal power function"),
 						PluginAuthor,
 						PluginNodeMissingPrompt,
 						NodeInterface,
-						{ },
+						{ NodeCategories::Envelopes },
 						{ },
 						FNodeDisplayStyle{}
 				};
